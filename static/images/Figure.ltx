@@ -1,0 +1,163 @@
+\documentclass[a4paper,11pt]{article}%twoside
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[english]{babel}
+\usepackage[top=2.7cm, bottom=2.1cm, left=2.2cm, right=2.2cm]{geometry}
+\usepackage{amssymb}
+\usepackage{amsmath,esint}
+\usepackage{amsbsy}
+\usepackage{bm}
+\usepackage{mathrsfs}
+\usepackage{textcomp}
+\usepackage{amssymb}
+\usepackage{algorithm}
+\usepackage{arydshln}
+
+\usepackage{float}
+\usepackage{braket}
+\newcommand{\I}{\mathrm{i}}
+\newcommand{\E}{\mathrm{e}} 
+\newcommand*{\D}{\mathop{}\!\mathrm{d}}
+\newcommand{\norm}[1]{\left\Vert #1\right\Vert} 
+\renewcommand{\thesection}{\Roman{section}}
+\usepackage{physics}
+\usepackage{textcomp} 
+\usepackage{cancel}
+\usepackage{setspace}
+\usepackage{pgfplots}
+\usepgfplotslibrary{patchplots}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{blkarray,lipsum}
+\usepackage{xcolor}
+\usepackage{tikz}
+\usetikzlibrary{calc,fadings,decorations.pathreplacing}
+\usepackage{verbatim}
+\usetikzlibrary{positioning}
+\usepackage{amsthm}
+\usetikzlibrary{pgfplots.groupplots}
+\newtheorem{theorem}{Theorem}[section]
+\newcommand\pgfmathsinandcos[3]
+{
+\pgfmathsetmacro#1{sin(#3)}
+\pgfmathsetmacro#2{cos(#3)}
+}
+\newcommand\LongitudePlane[3][current plane]
+{
+\pgfmathsinandcos\sinEl\cosEl{#2}
+\pgfmathsinandcos\sint\cost{#3}
+\tikzset{#1/.style={cm={\cost,\sint*\sinEl,0,\cosEl,(0,0)}}}
+}
+\newcommand\LatitudePlane[3][current plane]
+{
+\pgfmathsinandcos\sinEl\cosEl{#2}
+\pgfmathsinandcos\sint\cost{#3}
+\pgfmathsetmacro\yshift{\cosEl*\sint}
+\tikzset{#1/.style={cm={\cost,0,0,\cost*\sinEl,(0,\yshift)}}}
+}
+\newcommand\DrawLongitudeCircle[2][1]
+{
+\LongitudePlane{\angEl}{#2}
+\tikzset{current plane/.prefix style={scale=#1}}
+\pgfmathsetmacro\angVis{atan(sin(#2)*cos(\angEl)/sin(\angEl))}
+\draw[current plane] (\angVis:1) arc (\angVis:\angVis+180:1);
+}
+\newcommand\DrawLatitudeCircle[2][1]
+{
+\LatitudePlane{\angEl}{#2}
+\tikzset{current plane/.prefix style={scale=#1}}
+\pgfmathsetmacro\sinVis{sin(#2)/cos(#2)*sin(\angEl)/cos(\angEl)}
+\pgfmathsetmacro\angVis{asin(min(1,max(\sinVis,-1)))}
+\draw[current plane] (\angVis:1) arc (\angVis:-\angVis-180:1);
+}
+\tikzset
+{
+  >=latex,
+  inner sep=0pt,
+  outer sep=2pt,
+  mark coordinate/.style={inner sep=0pt,outer sep=0pt,minimum size=3pt,
+  fill=black,circle}
+}
+\usepackage{pdfpages}
+\usepackage{appendix}
+\usepackage{booktabs}
+%\usepackage{hyperref}
+\usepackage{url}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+\usepackage{subcaption}
+\usepackage{listings}
+\usepackage{pgfplots}
+\setlength\topsep{-3pt plus 0pt minus 0pt}
+\setcounter{totalnumber}{3}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstset{language=python,
+	        backgroundcolor=\color{backcolour},
+                keywordstyle=\color{magenta},
+                numberstyle=\tiny\color{brown},
+                stringstyle=\color{red},
+                commentstyle=\color{gray},
+                breakatwhitespace=false,         
+   	        breaklines=true,                 
+   		captionpos=b,                    
+    		keepspaces=true,                 
+  		numbers=left,                    
+  		numbersep=5pt,                  
+  		showspaces=false,                
+  		showstringspaces=false,
+  		showtabs=false,                  
+ 		tabsize=2,
+                 morecomment=[l][\color{magenta}]{\#}
+}
+%\usetikzlibrary{automata, arrows.meta, positioning}
+%\usepackage[ruled,linesnumbered]{algorithm2e}
+\usepackage{fancyhdr}
+\newtheorem{definition}{Definition}
+%\usepackage{import}
+%\subimport{../../layers/}{init}
+%\usetikzlibrary{positioning}
+%\def\ConvColor{rgb:yellow,5;red,2.5;white,5}
+%\def\ConvReluColor{rgb:yellow,5;red,5;white,5}
+%\def\PoolColor{rgb:red,1;black,0.3}
+%\def\FcColor{rgb:blue,5;red,2.5;white,5}
+%\def\FcReluColor{rgb:blue,5;red,5;white,4}
+%\def\SoftmaxColor{rgb:magenta,5;black,7}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\usepackage[framemethod=tikz]{mdframed}
+\begin{document}
+\begin{figure}[t]
+\centering
+\vspace{-0.2cm}
+\begin{tabular}{c@{ }c@}
+%  \multicolumn{2}{c}{DINOv2} & 
+%  \multicolumn{2}{c}{CLIP (text)} & 
+%  \multicolumn{2}{c}{CLIP} & 
+%  \multicolumn{2}{c}{CLIP+DINOv2 } & 
+%  \multicolumn{2}{c}{SAM} \\
+  % & \tiny{$threshold=0.7$} &  & & \tiny{$threshold=0.9$} &  \\
+\hspace{-0.4cm}
+% \includegraphics[width=0.093\linewidth, height=0.16\linewidth]
+\includegraphics[width=0.193\linewidth]{Granularity/00000_09.png} &  
+\includegraphics[ width=0.193\linewidth]{Granularity/00450.png} & 
+\includegraphics[width=0.193\linewidth]{Granularity/0.png} &  
+\includegraphics[width=0.193\linewidth]{Granularity/450.png} & 
+%\includegraphics[ width=0.193\linewidth]{Exp_1/CLIP/Clik/00000.png} &  
+%\includegraphics[ width=0.193\linewidth]{Exp_1/CLIP/Clik/00450.png} & 
+%\includegraphics[width=0.193\linewidth]{Exp_1/CLIP_and_DINO/Clik/00000.png} &  
+%\includegraphics[width=0.193\linewidth]{Exp_1/CLIP_and_DINO/Clik/00450.png} & 
+\includegraphics[width=0.193\linewidth]{Exp_1/SAM/Clik_training/00000.png} &  
+\includegraphics[ width=0.193\linewidth]{Exp_1/SAM/Clik_training/00450.png}  \\
+\vspace{-0.7cm}
+\end{tabular}
+\end{figure}
+
+
+
+
+
+\end{document}
